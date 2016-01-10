@@ -10,14 +10,14 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/register', function(req,res){
-  res.render('register', {});
+  res.render('index', {});
 });
 
 router.post('/register', function(req,res){
   Account.register(new Account({username: req.body.username, email: req.body.email}),
       req.body.password, function(err,account){
         if (err){
-          return res.render('register',{account: account});
+          return res.render('index',{info: "Sorry that username already exists. Try signing up as another user."});
         }
         passport.authenticate('local')(req,res,function(){
           res.redirect('/');
@@ -34,7 +34,7 @@ router.post('/login', passport.authenticate('local'), function(req,res){
 });
 
 router.get('/success', function(req,res){
-    res.render('success', {title: "dummy", user: req.user.username})
+    res.render('chat.ejs', {title: "dummy", user: req.user.username})
 });
 
 router.get('/logout', function(req,res){
