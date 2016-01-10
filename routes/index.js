@@ -30,12 +30,16 @@ router.get('/login', function(req,res){
 });
 
 router.post('/login', passport.authenticate('local'), function(req,res){
-    res.redirect('/');
+    res.redirect('/success');
+});
+
+router.get('/success', function(req,res){
+    res.render('success', {title: "dummy", user: req.user.username})
 });
 
 router.get('/logout', function(req,res){
    req.logout();
-   req.redirect('/');
+   res.redirect('/');
 });
 
 router.get('/ping', function(req,res){
